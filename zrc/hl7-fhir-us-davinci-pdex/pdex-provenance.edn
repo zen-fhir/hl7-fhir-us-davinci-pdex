@@ -1,0 +1,64 @@
+{ns hl7-fhir-us-davinci-pdex.pdex-provenance,
+ import
+ #{hl7-fhir-r4-core.BackboneElement
+   hl7-fhir-us-davinci-pdex.ProvenanceSourceFrom
+   zen.fhir
+   hl7-fhir-us-core.us-core-practitioner
+   hl7-fhir-us-core.us-core-organization
+   hl7-fhir-r4-core.instant
+   hl7-fhir-r4-core.Reference
+   hl7-fhir-r4-core.Element
+   hl7-fhir-us-core.us-core-provenance
+   hl7-fhir-us-davinci-pdex.value-set.ProvenancePayerSourceFormat},
+ schema
+ {:zen/tags #{zen.fhir/profile-schema zen/schema},
+  :zen/desc
+  "Provenance is provided by the payer to identify the source of the information, whether the data came via a clinical record or a claim record and whether the data was subject to manual transcription or other interpretive transformation. This profile adds PayerSourceFormat as an extension on the entity base element.",
+  :zen.fhir/type "Provenance",
+  :zen.fhir/profileUri
+  "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-provenance",
+  :zen.fhir/version "0.5.21-7",
+  :confirms
+  #{hl7-fhir-us-core.us-core-provenance/schema zen.fhir/Resource},
+  :type zen/map,
+  :keys
+  {:recorded
+   {:confirms #{hl7-fhir-r4-core.instant/schema},
+    :zen/desc "Date/Time information was received by Payer"},
+   :_recorded {:confirms #{hl7-fhir-r4-core.Element/schema}},
+   :agent
+   {:type zen/vector,
+    :every
+    {:confirms #{hl7-fhir-r4-core.BackboneElement/schema},
+     :type zen/map,
+     :keys
+     {:who
+      {:confirms
+       #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
+       :zen.fhir/reference
+       {:refers
+        #{hl7-fhir-us-core.us-core-organization/schema
+          hl7-fhir-us-core.us-core-practitioner/schema}},
+       :zen/desc
+       "Provide US Core Organization. If no Organization provide US Core Practitioner"}}}},
+   :entity
+   {:type zen/vector,
+    :every
+    {:confirms #{hl7-fhir-r4-core.BackboneElement/schema},
+     :type zen/map,
+     :keys
+     {:sourceFormat
+      {:confirms
+       #{hl7-fhir-us-davinci-pdex.ProvenanceSourceFrom/schema},
+       :fhir/extensionUri
+       "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/ProvenanceSourceFrom",
+       :type zen/map,
+       :keys
+       {:valueCodeableConcept
+        #:zen.fhir{:value-set
+                   {:symbol
+                    hl7-fhir-us-davinci-pdex.value-set.ProvenancePayerSourceFormat/value-set,
+                    :strength :required}}},
+       :fhir/flags #{:MS},
+       :zen/desc
+       "Entity Source format that target resource was created from"}}}}}}}

@@ -1,0 +1,16 @@
+{ns hl7-fhir-us-davinci-pdex,
+ import
+ #{hl7-fhir-us-davinci-pdex.search.pdex-medicationdispense-patient
+   hl7-fhir-us-davinci-pdex.ProvenanceSourceFrom
+   hl7-fhir-us-davinci-pdex.value-set.ProvenanceAgentType
+   hl7-fhir-us-core
+   hl7-fhir-r4-core
+   hl7-fhir-us-davinci-pdex.pdex-provenance
+   hl7-fhir-us-davinci-pdex.pdex-device
+   hl7-fhir-us-davinci-pdex.hrex-coverage
+   hl7-fhir-us-davinci-pdex.pdex-medicationdispense
+   hl7-fhir-us-davinci-hrex
+   hl7-fhir-us-davinci-pdex.search.pdex-medicationdispense-status
+   hl7-fhir-us-davinci-pdex.DispenseRefill
+   hl7-fhir-us-davinci-pdex.value-set.FDANationalDrugCode
+   hl7-fhir-us-davinci-pdex.value-set.ProvenancePayerSourceFormat}}
