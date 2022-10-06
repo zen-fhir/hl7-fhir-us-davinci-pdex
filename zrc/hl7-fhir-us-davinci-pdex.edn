@@ -1,16 +1,34 @@
 {ns hl7-fhir-us-davinci-pdex,
  import
  #{hl7-fhir-us-davinci-pdex.search.pdex-medicationdispense-patient
+   hl7-fhir-us-davinci-pdex.PriorAuthorizationUtilization
    hl7-fhir-us-davinci-pdex.ProvenanceSourceFrom
+   hl7-fhir-us-davinci-pdex.extension-reviewActionCode
    hl7-fhir-us-davinci-pdex.value-set.ProvenanceAgentType
    hl7-fhir-us-core
+   hl7-fhir-us-davinci-pdex.value-set.X12278ReviewDecisionReasonCode
    hl7-fhir-r4-core
+   hl7-fhir-us-davinci-pdex.value-set.PDexAdjudication
    hl7-fhir-us-davinci-pdex.pdex-provenance
+   hl7-fhir-us-davinci-pdex.value-set.PDexPayerBenefitPaymentStatus
+   hl7-fhir-us-davinci-pdex.value-set.X12ClaimAdjustmentReasonCodesCMSRemittanceAdviceRemarkCodes
+   hl7-fhir-us-davinci-pdex.search.explanationofbenefit-patient
+   hl7-fhir-us-davinci-pdex.value-set.PDexAdjudicationCategoryDiscriminator
    hl7-fhir-us-davinci-pdex.pdex-device
+   hl7-fhir-us-davinci-pdex.extension-reviewAction
    hl7-fhir-us-davinci-pdex.hrex-coverage
+   hl7-fhir-us-davinci-pdex.value-set.PriorAuthorizationAmounts
    hl7-fhir-us-davinci-pdex.pdex-medicationdispense
    hl7-fhir-us-davinci-hrex
    hl7-fhir-us-davinci-pdex.search.pdex-medicationdispense-status
+   hl7-fhir-us-davinci-pdex.search.explanationofbenefit-type
+   hl7-fhir-us-davinci-pdex.value-set.PDexSupportingInfoType
+   hl7-fhir-us-davinci-pdex.extension-levelOfServiceCode
+   hl7-fhir-us-davinci-pdex.search.explanationofbenefit-service-date
+   hl7-fhir-us-davinci-pdex.search.explanationofbenefit-identifier
    hl7-fhir-us-davinci-pdex.DispenseRefill
    hl7-fhir-us-davinci-pdex.value-set.FDANationalDrugCode
-   hl7-fhir-us-davinci-pdex.value-set.ProvenancePayerSourceFormat}}
+   hl7-fhir-us-davinci-pdex.value-set.PDexPAInstitutionalProcedureCodes
+   hl7-fhir-us-davinci-pdex.value-set.ProvenancePayerSourceFormat
+   hl7-fhir-us-davinci-pdex.value-set.PDexPriorAuthInstitutionalProcedureCodes
+   hl7-fhir-us-davinci-pdex.pdex-priorauthorization}}

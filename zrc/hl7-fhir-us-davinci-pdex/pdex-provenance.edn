@@ -5,9 +5,9 @@
    zen.fhir
    hl7-fhir-us-core.us-core-practitioner
    hl7-fhir-us-core.us-core-organization
-   hl7-fhir-r4-core.instant
    hl7-fhir-r4-core.Reference
-   hl7-fhir-r4-core.Element
+   hl7-fhir-r4-core.CodeableConcept
+   hl7-fhir-us-core.value-set.us-core-provenance-participant-type
    hl7-fhir-us-core.us-core-provenance
    hl7-fhir-us-davinci-pdex.value-set.ProvenancePayerSourceFormat},
  schema
@@ -17,22 +17,24 @@
   :zen.fhir/type "Provenance",
   :zen.fhir/profileUri
   "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-provenance",
-  :zen.fhir/version "0.5.22",
+  :zen.fhir/version "0.5.22-1",
   :confirms
   #{hl7-fhir-us-core.us-core-provenance/schema zen.fhir/Resource},
   :type zen/map,
   :keys
-  {:recorded
-   {:confirms #{hl7-fhir-r4-core.instant/schema},
-    :zen/desc "Date/Time information was received by Payer"},
-   :_recorded {:confirms #{hl7-fhir-r4-core.Element/schema}},
-   :agent
+  {:agent
    {:type zen/vector,
     :every
     {:confirms #{hl7-fhir-r4-core.BackboneElement/schema},
      :type zen/map,
      :keys
-     {:who
+     {:type
+      {:confirms #{hl7-fhir-r4-core.CodeableConcept/schema},
+       :zen.fhir/value-set
+       {:symbol
+        hl7-fhir-us-core.value-set.us-core-provenance-participant-type/value-set,
+        :strength :required}},
+      :who
       {:confirms
        #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
        :zen.fhir/reference

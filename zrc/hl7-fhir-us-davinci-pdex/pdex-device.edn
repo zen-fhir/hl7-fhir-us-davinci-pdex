@@ -8,13 +8,14 @@
    hl7-fhir-r4-core.string
    hl7-fhir-us-core.us-core-patient
    hl7-fhir-r4-core.value-set.device-status
+   hl7-fhir-r4-core.uri
    hl7-fhir-r4-core.Reference
    hl7-fhir-r4-core.base64Binary
    hl7-fhir-r4-core.Element
    hl7-fhir-r4-core.CodeableConcept
    hl7-fhir-r4-core.value-set.device-kind},
  schema
- {:zen.fhir/version "0.5.22",
+ {:zen.fhir/version "0.5.22-1",
   :confirms #{hl7-fhir-r4-core.Device/schema zen.fhir/Resource},
   :zen/tags #{zen.fhir/profile-schema zen/schema},
   :zen.fhir/profileUri
@@ -22,7 +23,7 @@
   :require #{:patient :type},
   :type zen/map,
   :zen/desc
-  "The PDex Device profile is provided to enable payers to record information about devices used by a member that may not have a UDI number.",
+  "The PDex Device profile is provided to enable payers to record information about devices used by a member that may not have a UDI number. \nFHIR-29796 PDex Device uses base resource not US Core Implantable Device Profile. Pdex-Device enables payers to record non-implantable device data. CGP Voted on variance approval: Drew Torres/Eric Haas: 9-0-0",
   :keys
   {:patient
    {:confirms #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
@@ -49,9 +50,11 @@
      :strength :required}},
    :lotNumber
    {:confirms #{hl7-fhir-r4-core.string/schema}, :fhir/flags #{:MS}},
+   :url {:confirms #{hl7-fhir-r4-core.uri/schema}, :fhir/flags #{:MS}},
    :_distinctIdentifier {:confirms #{hl7-fhir-r4-core.Element/schema}},
    :_serialNumber {:confirms #{hl7-fhir-r4-core.Element/schema}},
    :_lotNumber {:confirms #{hl7-fhir-r4-core.Element/schema}},
+   :_url {:confirms #{hl7-fhir-r4-core.Element/schema}},
    :expirationDate
    {:confirms #{hl7-fhir-r4-core.dateTime/schema}, :fhir/flags #{:MS}},
    :udiCarrier

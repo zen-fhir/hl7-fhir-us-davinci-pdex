@@ -1,0 +1,23 @@
+{ns
+ hl7-fhir-us-davinci-pdex.value-set.PDexAdjudicationCategoryDiscriminator,
+ import #{zen.fhir},
+ value-set
+ {:zen/tags #{zen.fhir/value-set},
+  :zen/desc
+  "Used as the discriminator for adjudication.category and item.adjudication.category for the PDex Prior Authorization",
+  :zen.fhir/version "0.5.22-1",
+  :fhir/code-systems
+  #{{:fhir/url
+     "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator",
+     :zen.fhir/content :bundled}
+    {:fhir/url "http://terminology.hl7.org/CodeSystem/adjudication",
+     :zen.fhir/content :bundled}
+    {:fhir/url
+     "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexPayerAdjudicationStatus",
+     :zen.fhir/content :bundled}
+    {:fhir/url
+     "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS",
+     :zen.fhir/content :bundled}},
+  :uri
+  "http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexAdjudicationCategoryDiscriminator",
+  :version "2.0.0-ballot"}}

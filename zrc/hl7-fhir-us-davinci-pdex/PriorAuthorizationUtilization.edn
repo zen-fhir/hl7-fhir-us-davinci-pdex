@@ -1,0 +1,15 @@
+{ns hl7-fhir-us-davinci-pdex.PriorAuthorizationUtilization,
+ import #{hl7-fhir-r4-core.Ratio zen.fhir hl7-fhir-r4-core.Quantity},
+ schema
+ {:fhir/polymorphic true,
+  :zen.fhir/version "0.5.22-1",
+  :zen/tags #{zen/schema zen.fhir/structure-schema},
+  :zen.fhir/profileUri
+  "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/PriorAuthorizationUtilization",
+  :type zen/map,
+  :zen/desc
+  "Amount/Quantity of an item or service that has been consumed/utilized",
+  :keys
+  {:Quantity {:confirms #{hl7-fhir-r4-core.Quantity/schema}},
+   :Ratio {:confirms #{hl7-fhir-r4-core.Ratio/schema}}},
+  :exclusive-keys #{#{:Ratio :Quantity}}}}

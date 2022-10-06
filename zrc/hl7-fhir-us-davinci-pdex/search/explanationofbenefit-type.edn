@@ -1,0 +1,15 @@
+{ns hl7-fhir-us-davinci-pdex.search.explanationofbenefit-type,
+ import #{zen.fhir},
+ search
+ {:zen/tags #{zen.fhir/search},
+  :fhir/id "explanationofbenefit-type",
+  :fhir/url
+  "http://hl7.org/fhir/us/davinci-pdex/SearchParameter/explanationofbenefit-type",
+  :fhir/type "token",
+  :name "type",
+  :expr
+  {:ExplanationOfBenefit
+   {:knife [["type"]],
+    :jsonpath ["$.\"type\"[*]"],
+    :data-types #{{:type "CodeableConcept", :polymorphic? false}},
+    :template :token}}}}

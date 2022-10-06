@@ -3,11 +3,17 @@
  value-set
  {:zen/tags #{zen.fhir/value-set},
   :zen/desc "Agent role performed relating to referenced resource",
-  :zen.fhir/version "0.5.22",
+  :zen.fhir/version "0.5.22-1",
   :fhir/code-systems
   #{{:fhir/url
+     "http://terminology.hl7.org/CodeSystem/provenance-participant-type",
+     :zen.fhir/content :bundled}
+    {:fhir/url
      "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/ProvenanceAgentRoleType",
+     :zen.fhir/content :bundled}
+    {:fhir/url
+     "http://hl7.org/fhir/us/core/CodeSystem/us-core-provenance-participant-type",
      :zen.fhir/content :bundled}},
   :uri
   "http://hl7.org/fhir/us/davinci-pdex/ValueSet/ProvenanceAgentType",
-  :version "1.0.0"}}
+  :version "2.0.0-ballot"}}
