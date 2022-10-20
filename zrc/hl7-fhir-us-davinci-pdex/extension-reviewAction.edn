@@ -11,7 +11,7 @@
   "The details of the review action that is necessary for the authorization.",
   :zen.fhir/profileUri
   "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction",
-  :zen.fhir/version "0.5.23",
+  :zen.fhir/version "0.5.24",
   :type zen/map,
   :keys
   {:code
