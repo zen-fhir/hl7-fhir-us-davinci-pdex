@@ -3,7 +3,7 @@
  value-set
  {:zen/tags #{zen.fhir/value-set},
   :zen/desc "Agent role performed relating to referenced resource",
-  :zen.fhir/version "0.5.30-1",
+  :zen.fhir/version "0.5.31",
   :fhir/code-systems
   #{{:fhir/url
      "http://terminology.hl7.org/CodeSystem/provenance-participant-type",
@@ -19,7 +19,7 @@
   :version "2.0.0-ballot",
   :ftr
   {:module "ig",
-   :source-url "node_modules/hl7.fhir.us.davinci-pdex",
-   :source-type :ig,
+   :source-urls ["node_modules/hl7.fhir.us.davinci-pdex"],
+   :source-type :igs,
    :ftr-path "ftr",
    :tag "init"}}}
