@@ -22,13 +22,13 @@
    hl7-fhir-us-core.us-core-practitionerrole
    hl7-fhir-us-core.us-core-medicationrequest},
  schema
- {:zen.fhir/version "0.6.1",
+ {:zen.fhir/version "0.6.2",
   :confirms
   #{hl7-fhir-r4-core.MedicationDispense/schema zen.fhir/Resource},
   :zen/tags #{zen.fhir/profile-schema zen/schema},
   :zen.fhir/profileUri
   "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-medicationdispense",
-  :require #{:subject},
+  :require #{:subject :medication},
   :type zen/map,
   :zen/desc
   "Prescription Medications dispensed by a pharmacy to a health plan member and paid for in full, or in part, by the health plan",
