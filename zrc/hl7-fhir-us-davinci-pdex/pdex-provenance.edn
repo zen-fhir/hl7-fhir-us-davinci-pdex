@@ -1,12 +1,9 @@
 {ns hl7-fhir-us-davinci-pdex.pdex-provenance,
  import
- #{hl7-fhir-r4-core.BackboneElement
-   hl7-fhir-us-davinci-pdex.ProvenanceSourceFrom
+ #{hl7-fhir-us-davinci-pdex.ProvenanceSourceFrom
    zen.fhir
    hl7-fhir-us-core.us-core-practitioner
    hl7-fhir-us-core.us-core-organization
-   hl7-fhir-r4-core.Reference
-   hl7-fhir-r4-core.CodeableConcept
    hl7-fhir-us-core.value-set.us-core-provenance-participant-type
    hl7-fhir-us-core.us-core-provenance
    hl7-fhir-us-davinci-pdex.value-set.ProvenancePayerSourceFormat},
@@ -17,7 +14,7 @@
   :zen.fhir/type "Provenance",
   :zen.fhir/profileUri
   "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-provenance",
-  :zen.fhir/version "0.6.3",
+  :zen.fhir/version "0.6.4",
   :confirms
   #{hl7-fhir-us-core.us-core-provenance/schema zen.fhir/Resource},
   :type zen/map,
@@ -25,18 +22,15 @@
   {:agent
    {:type zen/vector,
     :every
-    {:confirms #{hl7-fhir-r4-core.BackboneElement/schema},
-     :type zen/map,
+    {:type zen/map,
      :keys
      {:type
-      {:confirms #{hl7-fhir-r4-core.CodeableConcept/schema},
-       :zen.fhir/value-set
-       {:symbol
-        hl7-fhir-us-core.value-set.us-core-provenance-participant-type/value-set,
-        :strength :required}},
+      #:zen.fhir{:value-set
+                 {:symbol
+                  hl7-fhir-us-core.value-set.us-core-provenance-participant-type/value-set,
+                  :strength :required}},
       :who
-      {:confirms
-       #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
+      {:confirms #{zen.fhir/Reference},
        :zen.fhir/reference
        {:refers
         #{hl7-fhir-us-core.us-core-organization/schema
@@ -46,8 +40,7 @@
    :entity
    {:type zen/vector,
     :every
-    {:confirms #{hl7-fhir-r4-core.BackboneElement/schema},
-     :type zen/map,
+    {:type zen/map,
      :keys
      {:sourceFormat
       {:confirms

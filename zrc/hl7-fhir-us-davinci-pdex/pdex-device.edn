@@ -1,21 +1,12 @@
 {ns hl7-fhir-us-davinci-pdex.pdex-device,
  import
  #{hl7-fhir-r4-core.Device
-   hl7-fhir-r4-core.BackboneElement
-   hl7-fhir-r4-core.code
    zen.fhir
-   hl7-fhir-r4-core.dateTime
-   hl7-fhir-r4-core.string
    hl7-fhir-us-core.us-core-patient
    hl7-fhir-r4-core.value-set.device-status
-   hl7-fhir-r4-core.uri
-   hl7-fhir-r4-core.Reference
-   hl7-fhir-r4-core.base64Binary
-   hl7-fhir-r4-core.Element
-   hl7-fhir-r4-core.CodeableConcept
    hl7-fhir-r4-core.value-set.device-kind},
  schema
- {:zen.fhir/version "0.6.3",
+ {:zen.fhir/version "0.6.4",
   :confirms #{hl7-fhir-r4-core.Device/schema zen.fhir/Resource},
   :zen/tags #{zen.fhir/profile-schema zen/schema},
   :zen.fhir/profileUri
@@ -26,56 +17,33 @@
   "The PDex Device profile is provided to enable payers to record information about devices used by a member that may not have a UDI number. \nFHIR-29796 PDex Device uses base resource not US Core Implantable Device Profile. Pdex-Device enables payers to record non-implantable device data. CGP Voted on variance approval: Drew Torres/Eric Haas: 9-0-0",
   :keys
   {:patient
-   {:confirms #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
-    :fhir/flags #{:MS},
+   {:fhir/flags #{:MS},
+    :confirms #{zen.fhir/Reference},
     :zen.fhir/reference
     {:refers #{hl7-fhir-us-core.us-core-patient/schema}}},
-   :serialNumber
-   {:confirms #{hl7-fhir-r4-core.string/schema}, :fhir/flags #{:MS}},
-   :_status {:confirms #{hl7-fhir-r4-core.Element/schema}},
+   :serialNumber #:fhir{:flags #{:MS}},
    :type
-   {:confirms #{hl7-fhir-r4-core.CodeableConcept/schema},
-    :fhir/flags #{:MS},
+   {:fhir/flags #{:MS},
     :zen.fhir/value-set
     {:symbol hl7-fhir-r4-core.value-set.device-kind/value-set,
      :strength :extensible}},
-   :_expirationDate {:confirms #{hl7-fhir-r4-core.Element/schema}},
-   :distinctIdentifier
-   {:confirms #{hl7-fhir-r4-core.string/schema}, :fhir/flags #{:MS}},
+   :distinctIdentifier #:fhir{:flags #{:MS}},
    :status
-   {:confirms #{hl7-fhir-r4-core.code/schema},
-    :fhir/flags #{:MS},
+   {:fhir/flags #{:MS},
     :zen.fhir/value-set
     {:symbol hl7-fhir-r4-core.value-set.device-status/value-set,
      :strength :required}},
-   :lotNumber
-   {:confirms #{hl7-fhir-r4-core.string/schema}, :fhir/flags #{:MS}},
-   :url {:confirms #{hl7-fhir-r4-core.uri/schema}, :fhir/flags #{:MS}},
-   :_distinctIdentifier {:confirms #{hl7-fhir-r4-core.Element/schema}},
-   :_serialNumber {:confirms #{hl7-fhir-r4-core.Element/schema}},
-   :_lotNumber {:confirms #{hl7-fhir-r4-core.Element/schema}},
-   :_url {:confirms #{hl7-fhir-r4-core.Element/schema}},
-   :expirationDate
-   {:confirms #{hl7-fhir-r4-core.dateTime/schema}, :fhir/flags #{:MS}},
+   :lotNumber #:fhir{:flags #{:MS}},
+   :url #:fhir{:flags #{:MS}},
+   :expirationDate #:fhir{:flags #{:MS}},
    :udiCarrier
    {:type zen/vector,
     :every
-    {:confirms #{hl7-fhir-r4-core.BackboneElement/schema},
-     :type zen/map,
+    {:type zen/map,
      :keys
-     {:deviceIdentifier
-      {:confirms #{hl7-fhir-r4-core.string/schema},
-       :fhir/flags #{:MS}},
-      :_deviceIdentifier
-      {:confirms #{hl7-fhir-r4-core.Element/schema}},
-      :carrierAIDC
-      {:confirms #{hl7-fhir-r4-core.base64Binary/schema},
-       :fhir/flags #{:MS}},
-      :_carrierAIDC {:confirms #{hl7-fhir-r4-core.Element/schema}},
-      :carrierHRF
-      {:confirms #{hl7-fhir-r4-core.string/schema},
-       :fhir/flags #{:MS}},
-      :_carrierHRF {:confirms #{hl7-fhir-r4-core.Element/schema}}},
+     {:deviceIdentifier #:fhir{:flags #{:MS}},
+      :carrierAIDC #:fhir{:flags #{:MS}},
+      :carrierHRF #:fhir{:flags #{:MS}}},
      :require #{:deviceIdentifier},
      :fhir/flags #{:MS}},
     :maxItems 1}},

@@ -1,11 +1,6 @@
 {ns hl7-fhir-us-davinci-pdex.pdex-priorauthorization,
  import
- #{hl7-fhir-r4-core.Period
-   hl7-fhir-r4-core.decimal
-   hl7-fhir-us-davinci-pdex.PriorAuthorizationUtilization
-   hl7-fhir-r4-core.BackboneElement
-   hl7-fhir-r4-core.canonical
-   hl7-fhir-r4-core.code
+ #{hl7-fhir-us-davinci-pdex.PriorAuthorizationUtilization
    zen.fhir
    hl7-fhir-us-core.us-core-practitioner
    hl7-fhir-r4-core.ExplanationOfBenefit
@@ -16,11 +11,7 @@
    hl7-fhir-us-davinci-pdex.extension-reviewAction
    hl7-fhir-us-davinci-pdex.hrex-coverage
    hl7-fhir-us-davinci-pdex.value-set.PriorAuthorizationAmounts
-   hl7-fhir-r4-core.Meta
-   hl7-fhir-r4-core.Reference
-   hl7-fhir-r4-core.Element
    hl7-fhir-us-davinci-pdex.extension-levelOfServiceCode
-   hl7-fhir-r4-core.CodeableConcept
    hl7-fhir-us-core.us-core-location
    hl7-fhir-us-davinci-pdex.value-set.PDexPAInstitutionalProcedureCodes
    hl7-fhir-r4-core.value-set.process-priority
@@ -33,35 +24,32 @@
   :zen.fhir/type "ExplanationOfBenefit",
   :zen.fhir/profileUri
   "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-priorauthorization",
-  :zen.fhir/version "0.6.3",
+  :zen.fhir/version "0.6.4",
   :confirms
   #{zen.fhir/Resource hl7-fhir-r4-core.ExplanationOfBenefit/schema},
   :type zen/map,
   :keys
   {:patient
-   {:confirms #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
-    :fhir/flags #{:MS},
+   {:fhir/flags #{:MS},
+    :confirms #{zen.fhir/Reference},
     :zen.fhir/reference
     {:refers #{hl7-fhir-us-core.us-core-patient/schema}}},
    :insurance
    {:type zen/vector,
     :every
-    {:confirms #{hl7-fhir-r4-core.BackboneElement/schema},
-     :type zen/map,
+    {:type zen/map,
      :keys
      {:coverage
-      {:confirms
-       #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
+      {:confirms #{zen.fhir/Reference},
        :zen.fhir/reference
        {:refers #{hl7-fhir-us-davinci-pdex.hrex-coverage/schema}}}}}},
    :facility
-   {:confirms #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
-    :fhir/flags #{:MS},
+   {:fhir/flags #{:MS},
+    :confirms #{zen.fhir/Reference},
     :zen.fhir/reference
     {:refers #{hl7-fhir-us-core.us-core-location/schema}}},
    :meta
-   {:confirms #{hl7-fhir-r4-core.Meta/schema},
-    :type zen/map,
+   {:type zen/map,
     :keys
     {:profile
      {:slicing
@@ -75,18 +63,15 @@
            #{"http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-priorauthorization"
              "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-priorauthorization|2.0.0"})}}}},
       :type zen/vector,
-      :every {:confirms #{hl7-fhir-r4-core.canonical/schema}},
+      :every {},
       :minItems 1},
-     :_profile
-     {:type zen/vector,
-      :every {:confirms #{hl7-fhir-r4-core.Element/schema}}}},
+     :_profile {:type zen/vector, :every {}}},
     :require #{:profile}},
    :adjudication
    {:slicing {:slices {}},
     :type zen/vector,
     :every
-    {:confirms #{hl7-fhir-r4-core.BackboneElement/schema},
-     :type zen/map,
+    {:type zen/map,
      :keys
      {:category
       {:fhir/flags #{:MS},
@@ -96,8 +81,8 @@
         :strength :required}}},
      :fhir/flags #{:MS}}},
    :enterer
-   {:confirms #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
-    :fhir/flags #{:MS},
+   {:fhir/flags #{:MS},
+    :confirms #{zen.fhir/Reference},
     :zen.fhir/reference
     {:refers
      #{hl7-fhir-us-core.us-core-practitionerrole/schema
@@ -105,23 +90,18 @@
    :item
    {:type zen/vector,
     :every
-    {:confirms #{hl7-fhir-r4-core.BackboneElement/schema},
-     :type zen/map,
+    {:type zen/map,
      :keys
-     {:category
-      {:confirms #{hl7-fhir-r4-core.CodeableConcept/schema},
-       :fhir/flags #{:MS}},
+     {:category #:fhir{:flags #{:MS}},
       :productOrService
-      {:confirms #{hl7-fhir-r4-core.CodeableConcept/schema},
-       :zen.fhir/value-set
-       {:symbol
-        hl7-fhir-us-davinci-pdex.value-set.PDexPAInstitutionalProcedureCodes/value-set,
-        :strength :required}},
+      #:zen.fhir{:value-set
+                 {:symbol
+                  hl7-fhir-us-davinci-pdex.value-set.PDexPAInstitutionalProcedureCodes/value-set,
+                  :strength :required}},
       :encounter
       {:type zen/vector,
        :every
-       {:confirms
-        #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
+       {:confirms #{zen.fhir/Reference},
         :zen.fhir/reference
         {:refers #{hl7-fhir-us-core.us-core-encounter/schema}}}},
       :adjudication
@@ -139,12 +119,8 @@
               {:coding
                #{{:system
                   "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator",
-                  :code "allowedunits"}}},
-              :confirms #{hl7-fhir-r4-core.CodeableConcept/schema}},
-             :value
-             {:confirms #{hl7-fhir-r4-core.decimal/schema},
-              :fhir/flags #{:MS}},
-             :_value {:confirms #{hl7-fhir-r4-core.Element/schema}}},
+                  :code "allowedunits"}}}},
+             :value #:fhir{:flags #{:MS}}},
             :require #{:value}}},
           :filter
           {:engine :match,
@@ -165,11 +141,9 @@
               {:coding
                #{{:system
                   "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator",
-                  :code "denialreason"}}},
-              :confirms #{hl7-fhir-r4-core.CodeableConcept/schema}},
+                  :code "denialreason"}}}},
              :reason
-             {:confirms #{hl7-fhir-r4-core.CodeableConcept/schema},
-              :fhir/flags #{:MS},
+             {:fhir/flags #{:MS},
               :zen.fhir/value-set
               {:symbol
                hl7-fhir-us-davinci-pdex.value-set.X12ClaimAdjustmentReasonCodesCMSRemittanceAdviceRemarkCodes/value-set,
@@ -195,12 +169,8 @@
               {:coding
                #{{:system
                   "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator",
-                  :code "consumedunits"}}},
-              :confirms #{hl7-fhir-r4-core.CodeableConcept/schema}},
-             :value
-             {:confirms #{hl7-fhir-r4-core.decimal/schema},
-              :fhir/flags #{:MS}},
-             :_value {:confirms #{hl7-fhir-r4-core.Element/schema}}},
+                  :code "consumedunits"}}}},
+             :value #:fhir{:flags #{:MS}}},
             :require #{:value}}},
           :filter
           {:engine :match,
@@ -212,8 +182,7 @@
                 :code "consumedunits"}}}}}}}},
        :type zen/vector,
        :every
-       {:confirms #{hl7-fhir-r4-core.BackboneElement/schema},
-        :type zen/map,
+       {:type zen/map,
         :keys
         {:reviewAction
          {:confirms
@@ -224,16 +193,12 @@
           :zen/desc
           "The details of the review action that is necessary for the authorization."},
          :category
-         {:confirms #{hl7-fhir-r4-core.CodeableConcept/schema},
-          :zen.fhir/value-set
-          {:symbol
-           hl7-fhir-us-davinci-pdex.value-set.PDexAdjudicationCategoryDiscriminator/value-set,
-           :strength :required}}},
+         #:zen.fhir{:value-set
+                    {:symbol
+                     hl7-fhir-us-davinci-pdex.value-set.PDexAdjudicationCategoryDiscriminator/value-set,
+                     :strength :required}}},
         :fhir/flags #{:MS}}}}}},
-   :_status {:confirms #{hl7-fhir-r4-core.Element/schema}},
-   :type
-   {:confirms #{hl7-fhir-r4-core.CodeableConcept/schema},
-    :fhir/flags #{:MS}},
+   :type #:fhir{:flags #{:MS}},
    :levelOfServiceType
    {:confirms
     #{hl7-fhir-us-davinci-pdex.extension-levelOfServiceCode/schema},
@@ -243,15 +208,11 @@
     :zen/desc
     "A code specifying the level of service being requested (UM06)"},
    :preAuthRefPeriod
-   {:type zen/vector,
-    :every
-    {:confirms #{hl7-fhir-r4-core.Period/schema}, :fhir/flags #{:MS}},
-    :maxItems 1},
+   {:type zen/vector, :every #:fhir{:flags #{:MS}}, :maxItems 1},
    :total
    {:type zen/vector,
     :every
-    {:confirms #{hl7-fhir-r4-core.BackboneElement/schema},
-     :type zen/map,
+    {:type zen/map,
      :keys
      {:priorauth-utilization
       {:confirms
@@ -260,28 +221,26 @@
        "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/PriorAuthorizationUtilization",
        :fhir/flags #{:MS}},
       :category
-      {:confirms #{hl7-fhir-r4-core.CodeableConcept/schema},
-       :fhir/flags #{:MS},
+      {:fhir/flags #{:MS},
        :zen.fhir/value-set
        {:symbol
         hl7-fhir-us-davinci-pdex.value-set.PriorAuthorizationAmounts/value-set,
         :strength :extensible},
        :zen/desc "Prior Authorization utilization codes"}}}},
    :insurer
-   {:confirms #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
-    :fhir/flags #{:MS},
+   {:fhir/flags #{:MS},
+    :confirms #{zen.fhir/Reference},
     :zen.fhir/reference
     {:refers #{hl7-fhir-us-core.us-core-organization/schema}}},
    :priority
-   {:confirms #{hl7-fhir-r4-core.CodeableConcept/schema},
-    :zen.fhir/value-set
-    {:symbol hl7-fhir-r4-core.value-set.process-priority/value-set,
-     :strength :required}},
-   :status
-   {:confirms #{hl7-fhir-r4-core.code/schema}, :fhir/flags #{:MS}},
+   #:zen.fhir{:value-set
+              {:symbol
+               hl7-fhir-r4-core.value-set.process-priority/value-set,
+               :strength :required}},
+   :status #:fhir{:flags #{:MS}},
    :provider
-   {:confirms #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
-    :fhir/flags #{:MS},
+   {:fhir/flags #{:MS},
+    :confirms #{zen.fhir/Reference},
     :zen.fhir/reference
     {:refers
      #{hl7-fhir-us-core.us-core-practitionerrole/schema
@@ -290,14 +249,12 @@
    :addItem
    {:type zen/vector,
     :every
-    {:confirms #{hl7-fhir-r4-core.BackboneElement/schema},
-     :type zen/map,
+    {:type zen/map,
      :keys
      {:provider
       {:type zen/vector,
        :every
-       {:confirms
-        #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
+       {:confirms #{zen.fhir/Reference},
         :zen.fhir/reference
         {:refers
          #{hl7-fhir-us-core.us-core-practitionerrole/schema
@@ -306,13 +263,11 @@
    :careTeam
    {:type zen/vector,
     :every
-    {:confirms #{hl7-fhir-r4-core.BackboneElement/schema},
-     :type zen/map,
+    {:type zen/map,
      :keys
      {:provider
-      {:confirms
-       #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
-       :fhir/flags #{:MS},
+      {:fhir/flags #{:MS},
+       :confirms #{zen.fhir/Reference},
        :zen.fhir/reference
        {:refers
         #{hl7-fhir-us-core.us-core-practitionerrole/schema

@@ -1,20 +1,13 @@
 {ns hl7-fhir-us-davinci-pdex.pdex-medicationdispense,
  import
- #{hl7-fhir-r4-core.BackboneElement
-   hl7-fhir-r4-core.code
-   zen.fhir
+ #{zen.fhir
    hl7-fhir-us-core.us-core-practitioner
    hl7-terminology-r4.value-set.v3-ActPharmacySupplyType
-   hl7-fhir-r4-core.boolean
    hl7-fhir-r4-core.value-set.medicationdispense-status
    hl7-fhir-us-core.us-core-organization
    hl7-fhir-r4-core.MedicationDispense
    hl7-fhir-us-core.us-core-patient
-   hl7-fhir-r4-core.Quantity
-   hl7-fhir-r4-core.Reference
    hl7-fhir-r4-core.value-set.medicationdispense-category
-   hl7-fhir-r4-core.Element
-   hl7-fhir-r4-core.CodeableConcept
    hl7-fhir-us-davinci-pdex.DispenseRefill
    hl7-fhir-us-davinci-pdex.value-set.FDANationalDrugCode
    hl7-fhir-us-core.us-core-location
@@ -22,7 +15,7 @@
    hl7-fhir-us-core.us-core-practitionerrole
    hl7-fhir-us-core.us-core-medicationrequest},
  schema
- {:zen.fhir/version "0.6.3",
+ {:zen.fhir/version "0.6.4",
   :confirms
   #{hl7-fhir-r4-core.MedicationDispense/schema zen.fhir/Resource},
   :zen/tags #{zen.fhir/profile-schema zen/schema},
@@ -34,88 +27,72 @@
   "Prescription Medications dispensed by a pharmacy to a health plan member and paid for in full, or in part, by the health plan",
   :keys
   {:category
-   {:confirms #{hl7-fhir-r4-core.CodeableConcept/schema},
-    :zen.fhir/value-set
+   {:zen.fhir/value-set
     {:symbol
      hl7-fhir-r4-core.value-set.medicationdispense-category/value-set,
      :strength :required},
     :zen/desc "Type of dispense action"},
    :substitution
-   {:confirms #{hl7-fhir-r4-core.BackboneElement/schema},
-    :type zen/map,
-    :keys
-    {:wasSubstituted
-     {:confirms #{hl7-fhir-r4-core.boolean/schema},
-      :fhir/flags #{:MS}},
-     :_wasSubstituted {:confirms #{hl7-fhir-r4-core.Element/schema}}},
+   {:type zen/map,
+    :keys {:wasSubstituted #:fhir{:flags #{:MS}}},
     :fhir/flags #{:MS}},
-   :_status {:confirms #{hl7-fhir-r4-core.Element/schema}},
    :type
-   {:confirms #{hl7-fhir-r4-core.CodeableConcept/schema},
-    :zen.fhir/value-set
-    {:symbol
-     hl7-terminology-r4.value-set.v3-ActPharmacySupplyType/value-set,
-     :strength :example}},
+   #:zen.fhir{:value-set
+              {:symbol
+               hl7-terminology-r4.value-set.v3-ActPharmacySupplyType/value-set,
+               :strength :example}},
    :supportingInformation
    {:type zen/vector,
     :every
-    {:confirms #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
+    {:confirms #{zen.fhir/Reference},
      :zen.fhir/reference {:refers #{}},
      :zen/desc
      "Information that supports the dispensing of the medication. Reference any US Core, HRex or PDex profile."}},
    :status
-   {:confirms #{hl7-fhir-r4-core.code/schema},
-    :fhir/flags #{:MS},
+   {:fhir/flags #{:MS},
     :zen.fhir/value-set
     {:symbol
      hl7-fhir-r4-core.value-set.medicationdispense-status/value-set,
      :strength :required},
     :zen/desc "completed"},
-   :daysSupply
-   {:confirms #{hl7-fhir-r4-core.Quantity/schema},
-    :zen/desc "Medication expressed as a timing amount."},
+   :daysSupply #:zen{:desc "Medication expressed as a timing amount."},
    :refillNum
    {:confirms #{hl7-fhir-us-davinci-pdex.DispenseRefill/schema},
     :fhir/extensionUri
     "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/DispenseRefill",
     :type zen/map,
-    :keys {:valueQuantity {}},
+    :keys {},
     :zen/desc "Refill number of this prescription"},
-   :quantity
-   {:confirms #{hl7-fhir-r4-core.Quantity/schema},
-    :zen/desc "Billing, service, product, or drug code"},
+   :quantity #:zen{:desc "Billing, service, product, or drug code"},
    :location
-   {:confirms #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
+   {:confirms #{zen.fhir/Reference},
     :zen.fhir/reference
     {:refers #{hl7-fhir-us-core.us-core-location/schema}}},
    :authorizingPrescription
    {:type zen/vector,
     :every
-    {:confirms #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
+    {:confirms #{zen.fhir/Reference},
      :zen.fhir/reference
      {:refers #{hl7-fhir-us-core.us-core-medicationrequest/schema}}}},
    :subject
-   {:confirms #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
-    :fhir/flags #{:MS},
+   {:fhir/flags #{:MS},
+    :confirms #{zen.fhir/Reference},
     :zen.fhir/reference
     {:refers #{hl7-fhir-us-core.us-core-patient/schema}},
     :zen/desc "The patient who is prescribed the medication"},
    :performer
    {:type zen/vector,
     :every
-    {:confirms #{hl7-fhir-r4-core.BackboneElement/schema},
-     :type zen/map,
+    {:type zen/map,
      :keys
      {:function
-      {:confirms #{hl7-fhir-r4-core.CodeableConcept/schema},
-       :zen.fhir/value-set
+      {:zen.fhir/value-set
        {:symbol
         hl7-fhir-r4-core.value-set.medicationdispense-performer-function/value-set,
         :strength :example},
        :zen/desc "Trial fill, partial fill, emergency fill, etc."},
       :actor
-      {:confirms
-       #{hl7-fhir-r4-core.Reference/schema zen.fhir/Reference},
+      {:confirms #{zen.fhir/Reference},
        :zen.fhir/reference
        {:refers
         #{hl7-fhir-us-core.us-core-practitionerrole/schema
@@ -124,12 +101,10 @@
        :zen/desc "Individual or device performing the dispense"}},
      :zen/desc "Who performed the dispense event"}},
    :medication
-   {:confirms #{hl7-fhir-r4-core.CodeableConcept/schema},
-    :type zen/map,
+   {:type zen/map,
     :keys
     {:CodeableConcept
-     {:confirms #{hl7-fhir-r4-core.CodeableConcept/schema},
-      :zen.fhir/value-set
+     {:zen.fhir/value-set
       {:symbol
        hl7-fhir-us-davinci-pdex.value-set.FDANationalDrugCode/value-set,
        :strength :required},
