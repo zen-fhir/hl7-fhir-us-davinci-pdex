@@ -1,94 +1,45 @@
 {ns hl7-fhir-us-davinci-pdex,
- import
- #{zen.fhir hl7-fhir-us-core hl7-fhir-r4-core hl7-terminology-r4},
- extensions
- {:zen/tags #{zen.fhir/extensions},
-  :schemas
-  {"http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction"
-   #zen/quote hl7-fhir-us-davinci-pdex.extension-reviewAction/schema,
-   "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/PriorAuthorizationUtilization"
-   #zen/quote hl7-fhir-us-davinci-pdex.PriorAuthorizationUtilization/schema}},
- ig
- {:zen/tags #{zen.fhir/ig},
-  :profiles profiles,
-  :extensions extensions,
-  :structures structures,
-  :value-sets value-sets,
-  :searches searches},
- profiles
- {:zen/tags #{zen.fhir/profiles},
-  :schemas
-  {"Coverage"
-   {"http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/hrex-coverage"
-    #zen/quote hl7-fhir-us-davinci-pdex.hrex-coverage/schema},
-   "Device"
-   {"http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-device"
-    #zen/quote hl7-fhir-us-davinci-pdex.pdex-device/schema},
-   "Provenance"
-   {"http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-provenance"
-    #zen/quote hl7-fhir-us-davinci-pdex.pdex-provenance/schema},
-   "ExplanationOfBenefit"
-   {"http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-priorauthorization"
-    #zen/quote hl7-fhir-us-davinci-pdex.pdex-priorauthorization/schema},
-   "MedicationDispense"
-   {"http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-medicationdispense"
-    #zen/quote hl7-fhir-us-davinci-pdex.pdex-medicationdispense/schema}}},
- searches
- {:zen/tags #{zen.fhir/searches},
-  :searches
-  {"PdexMedicationDispensePatient"
-   {"http://hl7.org/fhir/us/davinci-pdex/SearchParameter/pdex-medicationdispense-patient"
-    #zen/quote hl7-fhir-us-davinci-pdex.search.pdex-medicationdispense-patient/search},
-   "PdexMedicationDispenseStatus"
-   {"http://hl7.org/fhir/us/davinci-pdex/SearchParameter/pdex-medicationdispense-status"
-    #zen/quote hl7-fhir-us-davinci-pdex.search.pdex-medicationdispense-status/search},
-   "ExplanationOfBenefit_Type"
-   {"http://hl7.org/fhir/us/davinci-pdex/SearchParameter/explanationofbenefit-type"
-    #zen/quote hl7-fhir-us-davinci-pdex.search.explanationofbenefit-type/search},
-   "ExplanationOfBenefit_ServiceDate"
-   {"http://hl7.org/fhir/us/davinci-pdex/SearchParameter/explanationofbenefit-service-date"
-    #zen/quote hl7-fhir-us-davinci-pdex.search.explanationofbenefit-service-date/search},
-   "ExplanationOfBenefit_Patient"
-   {"http://hl7.org/fhir/us/davinci-pdex/SearchParameter/explanationofbenefit-patient"
-    #zen/quote hl7-fhir-us-davinci-pdex.search.explanationofbenefit-patient/search},
-   "ExplanationOfBenefit_Identifier"
-   {"http://hl7.org/fhir/us/davinci-pdex/SearchParameter/explanationofbenefit-identifier"
-    #zen/quote hl7-fhir-us-davinci-pdex.search.explanationofbenefit-identifier/search}}},
- structures
- {:zen/tags #{zen.fhir/structures},
-  :schemas
-  {"http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/ProvenanceSourceFrom"
-   #zen/quote hl7-fhir-us-davinci-pdex.ProvenanceSourceFrom/schema,
-   "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-levelOfServiceCode"
-   #zen/quote hl7-fhir-us-davinci-pdex.extension-levelOfServiceCode/schema,
-   "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/DispenseRefill"
-   #zen/quote hl7-fhir-us-davinci-pdex.DispenseRefill/schema,
-   "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewActionCode"
-   #zen/quote hl7-fhir-us-davinci-pdex.extension-reviewActionCode/schema}},
- value-sets
- {:zen/tags #{zen.fhir/value-sets},
-  :value-sets
-  {"http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexAdjudicationCategoryDiscriminator"
-   #zen/quote hl7-fhir-us-davinci-pdex.value-set.PDexAdjudicationCategoryDiscriminator/value-set,
-   "http://hl7.org/fhir/us/davinci-pdex/ValueSet/PriorAuthorizationAmounts"
-   #zen/quote hl7-fhir-us-davinci-pdex.value-set.PriorAuthorizationAmounts/value-set,
-   "http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexPayerBenefitPaymentStatus"
-   #zen/quote hl7-fhir-us-davinci-pdex.value-set.PDexPayerBenefitPaymentStatus/value-set,
-   "http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexPAInstitutionalProcedureCodes"
-   #zen/quote hl7-fhir-us-davinci-pdex.value-set.PDexPAInstitutionalProcedureCodes/value-set,
-   "http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode"
-   #zen/quote hl7-fhir-us-davinci-pdex.value-set.X12278ReviewDecisionReasonCode/value-set,
-   "http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexPriorAuthInstitutionalProcedureCodes"
-   #zen/quote hl7-fhir-us-davinci-pdex.value-set.PDexPriorAuthInstitutionalProcedureCodes/value-set,
-   "http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12ClaimAdjustmentReasonCodesCMSRemittanceAdviceRemarkCodes"
-   #zen/quote hl7-fhir-us-davinci-pdex.value-set.X12ClaimAdjustmentReasonCodesCMSRemittanceAdviceRemarkCodes/value-set,
-   "http://hl7.org/fhir/us/davinci-pdex/ValueSet/FDANationalDrugCode"
-   #zen/quote hl7-fhir-us-davinci-pdex.value-set.FDANationalDrugCode/value-set,
-   "http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexSupportingInfoType"
-   #zen/quote hl7-fhir-us-davinci-pdex.value-set.PDexSupportingInfoType/value-set,
-   "http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexAdjudication"
-   #zen/quote hl7-fhir-us-davinci-pdex.value-set.PDexAdjudication/value-set,
-   "http://hl7.org/fhir/us/davinci-pdex/ValueSet/ProvenancePayerSourceFormat"
-   #zen/quote hl7-fhir-us-davinci-pdex.value-set.ProvenancePayerSourceFormat/value-set,
-   "http://hl7.org/fhir/us/davinci-pdex/ValueSet/ProvenanceAgentType"
-   #zen/quote hl7-fhir-us-davinci-pdex.value-set.ProvenanceAgentType/value-set}}}
+ import #{zen.fhir
+          hl7-fhir-us-core
+          hl7-fhir-r4-core
+          hl7-terminology-r4},
+ extensions {:zen/tags #{zen.fhir/extensions},
+             :schemas {"http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction" #zen/quote hl7-fhir-us-davinci-pdex.extension-reviewAction/schema,
+                       "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/PriorAuthorizationUtilization" #zen/quote hl7-fhir-us-davinci-pdex.PriorAuthorizationUtilization/schema}},
+ ig {:zen/tags #{zen.fhir/ig},
+     :profiles profiles,
+     :extensions extensions,
+     :structures structures,
+     :value-sets value-sets,
+     :searches searches},
+ profiles {:zen/tags #{zen.fhir/profiles},
+           :schemas {"Coverage" {"http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/hrex-coverage" #zen/quote hl7-fhir-us-davinci-pdex.hrex-coverage/schema},
+                     "Device" {"http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-device" #zen/quote hl7-fhir-us-davinci-pdex.pdex-device/schema},
+                     "Provenance" {"http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-provenance" #zen/quote hl7-fhir-us-davinci-pdex.pdex-provenance/schema},
+                     "ExplanationOfBenefit" {"http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-priorauthorization" #zen/quote hl7-fhir-us-davinci-pdex.pdex-priorauthorization/schema},
+                     "MedicationDispense" {"http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-medicationdispense" #zen/quote hl7-fhir-us-davinci-pdex.pdex-medicationdispense/schema}}},
+ searches {:zen/tags #{zen.fhir/searches},
+           :searches {"PdexMedicationDispensePatient" {"http://hl7.org/fhir/us/davinci-pdex/SearchParameter/pdex-medicationdispense-patient" #zen/quote hl7-fhir-us-davinci-pdex.search.pdex-medicationdispense-patient/search},
+                      "PdexMedicationDispenseStatus" {"http://hl7.org/fhir/us/davinci-pdex/SearchParameter/pdex-medicationdispense-status" #zen/quote hl7-fhir-us-davinci-pdex.search.pdex-medicationdispense-status/search},
+                      "ExplanationOfBenefit_Type" {"http://hl7.org/fhir/us/davinci-pdex/SearchParameter/explanationofbenefit-type" #zen/quote hl7-fhir-us-davinci-pdex.search.explanationofbenefit-type/search},
+                      "ExplanationOfBenefit_ServiceDate" {"http://hl7.org/fhir/us/davinci-pdex/SearchParameter/explanationofbenefit-service-date" #zen/quote hl7-fhir-us-davinci-pdex.search.explanationofbenefit-service-date/search},
+                      "ExplanationOfBenefit_Patient" {"http://hl7.org/fhir/us/davinci-pdex/SearchParameter/explanationofbenefit-patient" #zen/quote hl7-fhir-us-davinci-pdex.search.explanationofbenefit-patient/search},
+                      "ExplanationOfBenefit_Identifier" {"http://hl7.org/fhir/us/davinci-pdex/SearchParameter/explanationofbenefit-identifier" #zen/quote hl7-fhir-us-davinci-pdex.search.explanationofbenefit-identifier/search}}},
+ structures {:zen/tags #{zen.fhir/structures},
+             :schemas {"http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/ProvenanceSourceFrom" #zen/quote hl7-fhir-us-davinci-pdex.ProvenanceSourceFrom/schema,
+                       "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-levelOfServiceCode" #zen/quote hl7-fhir-us-davinci-pdex.extension-levelOfServiceCode/schema,
+                       "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/DispenseRefill" #zen/quote hl7-fhir-us-davinci-pdex.DispenseRefill/schema,
+                       "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewActionCode" #zen/quote hl7-fhir-us-davinci-pdex.extension-reviewActionCode/schema}},
+ value-sets {:zen/tags #{zen.fhir/value-sets},
+             :value-sets {"http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexAdjudicationCategoryDiscriminator" #zen/quote hl7-fhir-us-davinci-pdex.value-set.PDexAdjudicationCategoryDiscriminator/value-set,
+                          "http://hl7.org/fhir/us/davinci-pdex/ValueSet/PriorAuthorizationAmounts" #zen/quote hl7-fhir-us-davinci-pdex.value-set.PriorAuthorizationAmounts/value-set,
+                          "http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexPayerBenefitPaymentStatus" #zen/quote hl7-fhir-us-davinci-pdex.value-set.PDexPayerBenefitPaymentStatus/value-set,
+                          "http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexPAInstitutionalProcedureCodes" #zen/quote hl7-fhir-us-davinci-pdex.value-set.PDexPAInstitutionalProcedureCodes/value-set,
+                          "http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode" #zen/quote hl7-fhir-us-davinci-pdex.value-set.X12278ReviewDecisionReasonCode/value-set,
+                          "http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexPriorAuthInstitutionalProcedureCodes" #zen/quote hl7-fhir-us-davinci-pdex.value-set.PDexPriorAuthInstitutionalProcedureCodes/value-set,
+                          "http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12ClaimAdjustmentReasonCodesCMSRemittanceAdviceRemarkCodes" #zen/quote hl7-fhir-us-davinci-pdex.value-set.X12ClaimAdjustmentReasonCodesCMSRemittanceAdviceRemarkCodes/value-set,
+                          "http://hl7.org/fhir/us/davinci-pdex/ValueSet/FDANationalDrugCode" #zen/quote hl7-fhir-us-davinci-pdex.value-set.FDANationalDrugCode/value-set,
+                          "http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexSupportingInfoType" #zen/quote hl7-fhir-us-davinci-pdex.value-set.PDexSupportingInfoType/value-set,
+                          "http://hl7.org/fhir/us/davinci-pdex/ValueSet/PDexAdjudication" #zen/quote hl7-fhir-us-davinci-pdex.value-set.PDexAdjudication/value-set,
+                          "http://hl7.org/fhir/us/davinci-pdex/ValueSet/ProvenancePayerSourceFormat" #zen/quote hl7-fhir-us-davinci-pdex.value-set.ProvenancePayerSourceFormat/value-set,
+                          "http://hl7.org/fhir/us/davinci-pdex/ValueSet/ProvenanceAgentType" #zen/quote hl7-fhir-us-davinci-pdex.value-set.ProvenanceAgentType/value-set}}}

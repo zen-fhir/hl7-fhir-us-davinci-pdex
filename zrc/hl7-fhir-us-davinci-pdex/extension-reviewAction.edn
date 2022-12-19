@@ -1,35 +1,21 @@
 {ns hl7-fhir-us-davinci-pdex.extension-reviewAction,
- import
- #{hl7-fhir-us-davinci-pdex.extension-reviewActionCode
-   zen.fhir
-   hl7-fhir-r4-core.boolean
-   hl7-fhir-r4-core.string
-   hl7-fhir-r4-core.CodeableConcept},
- schema
- {:zen/tags #{zen/schema zen.fhir/structure-schema},
-  :zen/desc
-  "The details of the review action that is necessary for the authorization.",
-  :zen.fhir/profileUri
-  "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction",
-  :zen.fhir/version "0.6.6-7",
-  :type zen/map,
-  :keys
-  {:code
-   {:confirms
-    #{hl7-fhir-us-davinci-pdex.extension-reviewActionCode/schema},
-    :fhir/extensionUri
-    "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewActionCode",
-    :zen/desc "Healthcare Services Outcome"},
-   :number
-   {:confirms #{hl7-fhir-r4-core.string/schema},
-    :zen/desc "Item Level Review Number"},
-   :reasonCode
-   {:type zen/vector,
-    :every
-    {:confirms #{hl7-fhir-r4-core.CodeableConcept/schema},
-     :zen/desc
-     "Explanation of the review denial or partial approval"}},
-   :secondSurgicalOpinionFlag
-   {:confirms #{hl7-fhir-r4-core.boolean/schema},
-    :zen/desc
-    "Whether a second surgical opinion is need for approval"}}}}
+ import #{hl7-fhir-us-davinci-pdex.extension-reviewActionCode
+          zen.fhir
+          hl7-fhir-r4-core.boolean
+          hl7-fhir-r4-core.string
+          hl7-fhir-r4-core.CodeableConcept},
+ schema {:zen/tags #{zen/schema zen.fhir/structure-schema},
+         :zen/desc "The details of the review action that is necessary for the authorization.",
+         :zen.fhir/profileUri "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction",
+         :zen.fhir/version "0.6.6-8",
+         :type zen/map,
+         :keys {:code {:confirms #{hl7-fhir-us-davinci-pdex.extension-reviewActionCode/schema},
+                       :fhir/extensionUri "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewActionCode",
+                       :zen/desc "Healthcare Services Outcome"},
+                :number {:confirms #{hl7-fhir-r4-core.string/schema},
+                         :zen/desc "Item Level Review Number"},
+                :reasonCode {:type zen/vector,
+                             :every {:confirms #{hl7-fhir-r4-core.CodeableConcept/schema},
+                                     :zen/desc "Explanation of the review denial or partial approval"}},
+                :secondSurgicalOpinionFlag {:confirms #{hl7-fhir-r4-core.boolean/schema},
+                                            :zen/desc "Whether a second surgical opinion is need for approval"}}}}

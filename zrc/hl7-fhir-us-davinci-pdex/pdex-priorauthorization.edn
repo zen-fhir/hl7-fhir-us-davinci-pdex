@@ -1,273 +1,148 @@
 {ns hl7-fhir-us-davinci-pdex.pdex-priorauthorization,
- import
- #{hl7-fhir-us-davinci-pdex.PriorAuthorizationUtilization
-   zen.fhir
-   hl7-fhir-us-core.us-core-practitioner
-   hl7-fhir-r4-core.ExplanationOfBenefit
-   hl7-fhir-us-davinci-pdex.value-set.X12ClaimAdjustmentReasonCodesCMSRemittanceAdviceRemarkCodes
-   hl7-fhir-us-core.us-core-organization
-   hl7-fhir-us-core.us-core-patient
-   hl7-fhir-us-davinci-pdex.value-set.PDexAdjudicationCategoryDiscriminator
-   hl7-fhir-us-davinci-pdex.extension-reviewAction
-   hl7-fhir-us-davinci-pdex.hrex-coverage
-   hl7-fhir-us-davinci-pdex.value-set.PriorAuthorizationAmounts
-   hl7-fhir-us-davinci-pdex.extension-levelOfServiceCode
-   hl7-fhir-us-core.us-core-location
-   hl7-fhir-us-davinci-pdex.value-set.PDexPAInstitutionalProcedureCodes
-   hl7-fhir-r4-core.value-set.process-priority
-   hl7-fhir-us-core.us-core-encounter
-   hl7-fhir-us-core.us-core-practitionerrole},
- schema
- {:zen/tags #{zen.fhir/profile-schema zen/schema},
-  :zen/desc
-  "The PDex Prior Authorization (PPA) profile is based on the ExplanationOfBenefit resource and is provided to enable payers to express Prior Authorization information to members",
-  :zen.fhir/type "ExplanationOfBenefit",
-  :zen.fhir/profileUri
-  "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-priorauthorization",
-  :zen.fhir/version "0.6.6-7",
-  :confirms
-  #{zen.fhir/Resource hl7-fhir-r4-core.ExplanationOfBenefit/schema},
-  :type zen/map,
-  :keys
-  {:patient
-   {:fhir/flags #{:MS},
-    :confirms #{zen.fhir/Reference},
-    :zen.fhir/reference
-    {:refers #{hl7-fhir-us-core.us-core-patient/schema}}},
-   :insurance
-   {:type zen/vector,
-    :every
-    {:type zen/map,
-     :keys
-     {:coverage
-      {:confirms #{zen.fhir/Reference},
-       :zen.fhir/reference
-       {:refers #{hl7-fhir-us-davinci-pdex.hrex-coverage/schema}}}}}},
-   :facility
-   {:fhir/flags #{:MS},
-    :confirms #{zen.fhir/Reference},
-    :zen.fhir/reference
-    {:refers #{hl7-fhir-us-core.us-core-location/schema}}},
-   :meta
-   {:type zen/map,
-    :keys
-    {:profile
-     {:type zen/vector,
-      :slicing
-      {:slices
-       {"supportedProfile"
-        {:schema {:type zen/vector, :minItems 1, :maxItems 1},
-         :filter
-         {:engine :match,
-          :match
-          (:zen.match/one-of
-           #{"http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-priorauthorization"
-             "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-priorauthorization|2.0.0"})}}}},
-      :minItems 1}},
-    :require #{:profile}},
-   :adjudication
-   {:type zen/vector,
-    :slicing {:slices {}},
-    :every
-    {:type zen/map,
-     :keys
-     {:category
-      {:fhir/flags #{:MS},
-       :zen.fhir/value-set
-       {:symbol
-        hl7-fhir-us-davinci-pdex.value-set.PDexAdjudicationCategoryDiscriminator/value-set,
-        :strength :required}}},
-     :fhir/flags #{:MS}}},
-   :enterer
-   {:fhir/flags #{:MS},
-    :confirms #{zen.fhir/Reference},
-    :zen.fhir/reference
-    {:refers
-     #{hl7-fhir-us-core.us-core-practitionerrole/schema
-       hl7-fhir-us-core.us-core-practitioner/schema}}},
-   :item
-   {:type zen/vector,
-    :every
-    {:type zen/map,
-     :keys
-     {:category #:fhir{:flags #{:MS}},
-      :productOrService
-      #:zen.fhir{:value-set
-                 {:symbol
-                  hl7-fhir-us-davinci-pdex.value-set.PDexPAInstitutionalProcedureCodes/value-set,
-                  :strength :required}},
-      :encounter
-      {:type zen/vector,
-       :every
-       {:confirms #{zen.fhir/Reference},
-        :zen.fhir/reference
-        {:refers #{hl7-fhir-us-core.us-core-encounter/schema}}}},
-      :adjudication
-      {:type zen/vector,
-       :slicing
-       {:slices
-        {"allowedunits"
-         {:schema
-          {:type zen/vector,
-           :maxItems 1,
-           :every
-           {:type zen/map,
-            :keys
-            {:category
-             {:match
-              {:coding
-               #{{:system
-                  "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator",
-                  :code "allowedunits"}}}},
-             :value #:fhir{:flags #{:MS}}},
-            :require #{:value}}},
-          :filter
-          {:engine :match,
-           :match
-           {:category
-            {:coding
-             #{{:system
-                "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator",
-                :code "allowedunits"}}}}}},
-         "denialreason"
-         {:schema
-          {:type zen/vector,
-           :every
-           {:type zen/map,
-            :keys
-            {:category
-             {:match
-              {:coding
-               #{{:system
-                  "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator",
-                  :code "denialreason"}}}},
-             :reason
-             {:fhir/flags #{:MS},
-              :zen.fhir/value-set
-              {:symbol
-               hl7-fhir-us-davinci-pdex.value-set.X12ClaimAdjustmentReasonCodesCMSRemittanceAdviceRemarkCodes/value-set,
-               :strength :required}}},
-            :require #{:reason}}},
-          :filter
-          {:engine :match,
-           :match
-           {:category
-            {:coding
-             #{{:system
-                "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator",
-                :code "denialreason"}}}}}},
-         "consumedunits"
-         {:schema
-          {:type zen/vector,
-           :maxItems 1,
-           :every
-           {:type zen/map,
-            :keys
-            {:category
-             {:match
-              {:coding
-               #{{:system
-                  "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator",
-                  :code "consumedunits"}}}},
-             :value #:fhir{:flags #{:MS}}},
-            :require #{:value}}},
-          :filter
-          {:engine :match,
-           :match
-           {:category
-            {:coding
-             #{{:system
-                "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator",
-                :code "consumedunits"}}}}}}}},
-       :every
-       {:type zen/map,
-        :keys
-        {:reviewAction
-         {:confirms
-          #{hl7-fhir-us-davinci-pdex.extension-reviewAction/schema},
-          :fhir/extensionUri
-          "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction",
-          :fhir/flags #{:MS},
-          :zen/desc
-          "The details of the review action that is necessary for the authorization."},
-         :category
-         #:zen.fhir{:value-set
-                    {:symbol
-                     hl7-fhir-us-davinci-pdex.value-set.PDexAdjudicationCategoryDiscriminator/value-set,
-                     :strength :required}}},
-        :fhir/flags #{:MS}}}}}},
-   :type #:fhir{:flags #{:MS}},
-   :levelOfServiceType
-   {:confirms
-    #{hl7-fhir-us-davinci-pdex.extension-levelOfServiceCode/schema},
-    :fhir/extensionUri
-    "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-levelOfServiceCode",
-    :fhir/flags #{:MS},
-    :zen/desc
-    "A code specifying the level of service being requested (UM06)"},
-   :preAuthRefPeriod
-   {:type zen/vector, :every #:fhir{:flags #{:MS}}, :maxItems 1},
-   :total
-   {:type zen/vector,
-    :every
-    {:type zen/map,
-     :keys
-     {:priorauth-utilization
-      {:confirms
-       #{hl7-fhir-us-davinci-pdex.PriorAuthorizationUtilization/schema},
-       :fhir/extensionUri
-       "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/PriorAuthorizationUtilization",
-       :fhir/flags #{:MS}},
-      :category
-      {:fhir/flags #{:MS},
-       :zen.fhir/value-set
-       {:symbol
-        hl7-fhir-us-davinci-pdex.value-set.PriorAuthorizationAmounts/value-set,
-        :strength :extensible},
-       :zen/desc "Prior Authorization utilization codes"}}}},
-   :insurer
-   {:fhir/flags #{:MS},
-    :confirms #{zen.fhir/Reference},
-    :zen.fhir/reference
-    {:refers #{hl7-fhir-us-core.us-core-organization/schema}}},
-   :priority
-   #:zen.fhir{:value-set
-              {:symbol
-               hl7-fhir-r4-core.value-set.process-priority/value-set,
-               :strength :required}},
-   :status #:fhir{:flags #{:MS}},
-   :provider
-   {:fhir/flags #{:MS},
-    :confirms #{zen.fhir/Reference},
-    :zen.fhir/reference
-    {:refers
-     #{hl7-fhir-us-core.us-core-practitionerrole/schema
-       hl7-fhir-us-core.us-core-organization/schema
-       hl7-fhir-us-core.us-core-practitioner/schema}}},
-   :addItem
-   {:type zen/vector,
-    :every
-    {:type zen/map,
-     :keys
-     {:provider
-      {:type zen/vector,
-       :every
-       {:confirms #{zen.fhir/Reference},
-        :zen.fhir/reference
-        {:refers
-         #{hl7-fhir-us-core.us-core-practitionerrole/schema
-           hl7-fhir-us-core.us-core-organization/schema
-           hl7-fhir-us-core.us-core-practitioner/schema}}}}}}},
-   :careTeam
-   {:type zen/vector,
-    :every
-    {:type zen/map,
-     :keys
-     {:provider
-      {:fhir/flags #{:MS},
-       :confirms #{zen.fhir/Reference},
-       :zen.fhir/reference
-       {:refers
-        #{hl7-fhir-us-core.us-core-practitionerrole/schema
-          hl7-fhir-us-core.us-core-organization/schema
-          hl7-fhir-us-core.us-core-practitioner/schema}}}}}}}}}
+ import #{hl7-fhir-us-davinci-pdex.PriorAuthorizationUtilization
+          zen.fhir
+          hl7-fhir-us-core.us-core-practitioner
+          hl7-fhir-r4-core.ExplanationOfBenefit
+          hl7-fhir-us-davinci-pdex.value-set.X12ClaimAdjustmentReasonCodesCMSRemittanceAdviceRemarkCodes
+          hl7-fhir-us-core.us-core-organization
+          hl7-fhir-us-core.us-core-patient
+          hl7-fhir-us-davinci-pdex.value-set.PDexAdjudicationCategoryDiscriminator
+          hl7-fhir-us-davinci-pdex.extension-reviewAction
+          hl7-fhir-us-davinci-pdex.hrex-coverage
+          hl7-fhir-us-davinci-pdex.value-set.PriorAuthorizationAmounts
+          hl7-fhir-us-davinci-pdex.extension-levelOfServiceCode
+          hl7-fhir-us-core.us-core-location
+          hl7-fhir-us-davinci-pdex.value-set.PDexPAInstitutionalProcedureCodes
+          hl7-fhir-r4-core.value-set.process-priority
+          hl7-fhir-us-core.us-core-encounter
+          hl7-fhir-us-core.us-core-practitionerrole},
+ schema {:zen/tags #{zen.fhir/profile-schema zen/schema},
+         :zen/desc "The PDex Prior Authorization (PPA) profile is based on the ExplanationOfBenefit resource and is provided to enable payers to express Prior Authorization information to members",
+         :zen.fhir/type "ExplanationOfBenefit",
+         :zen.fhir/profileUri "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-priorauthorization",
+         :zen.fhir/version "0.6.6-8",
+         :confirms #{zen.fhir/Resource
+                     hl7-fhir-r4-core.ExplanationOfBenefit/schema},
+         :type zen/map,
+         :keys {:patient {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-us-core.us-core-patient/schema}}},
+                :insurance {:type zen/vector,
+                            :every {:type zen/map,
+                                    :keys {:coverage {:confirms #{zen.fhir/Reference},
+                                                      :zen.fhir/reference {:refers #{hl7-fhir-us-davinci-pdex.hrex-coverage/schema}}}}}},
+                :facility {:fhir/flags #{:MS},
+                           :confirms #{zen.fhir/Reference},
+                           :zen.fhir/reference {:refers #{hl7-fhir-us-core.us-core-location/schema}}},
+                :meta {:type zen/map,
+                       :keys {:profile {:type zen/vector,
+                                        :slicing {:slices {"supportedProfile" {:schema {:type zen/vector,
+                                                                                        :minItems 1,
+                                                                                        :maxItems 1},
+                                                                               :filter {:engine :match,
+                                                                                        :match (:zen.match/one-of
+                                                                                                #{"http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-priorauthorization"
+                                                                                                  "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-priorauthorization|2.0.0"})}}}},
+                                        :minItems 1}},
+                       :require #{:profile}},
+                :adjudication {:type zen/vector,
+                               :slicing {:slices {}},
+                               :every {:type zen/map,
+                                       :keys {:category {:fhir/flags #{:MS},
+                                                         :zen.fhir/value-set {:symbol hl7-fhir-us-davinci-pdex.value-set.PDexAdjudicationCategoryDiscriminator/value-set,
+                                                                              :strength :required}}},
+                                       :fhir/flags #{:MS}}},
+                :enterer {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-us-core.us-core-practitionerrole/schema
+                                                         hl7-fhir-us-core.us-core-practitioner/schema}}},
+                :item {:type zen/vector,
+                       :every {:type zen/map,
+                               :keys {:category {:fhir/flags #{:MS}},
+                                      :productOrService {:zen.fhir/value-set {:symbol hl7-fhir-us-davinci-pdex.value-set.PDexPAInstitutionalProcedureCodes/value-set,
+                                                                              :strength :required}},
+                                      :encounter {:type zen/vector,
+                                                  :every {:confirms #{zen.fhir/Reference},
+                                                          :zen.fhir/reference {:refers #{hl7-fhir-us-core.us-core-encounter/schema}}}},
+                                      :adjudication {:type zen/vector,
+                                                     :slicing {:slices {"allowedunits" {:schema {:type zen/vector,
+                                                                                                 :maxItems 1,
+                                                                                                 :every {:type zen/map,
+                                                                                                         :keys {:category {:match {:coding #{{:system "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator",
+                                                                                                                                              :code "allowedunits"}}}},
+                                                                                                                :value {:fhir/flags #{:MS}}},
+                                                                                                         :require #{:value}}},
+                                                                                        :filter {:engine :match,
+                                                                                                 :match {:category {:coding #{{:system "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator",
+                                                                                                                               :code "allowedunits"}}}}}},
+                                                                        "denialreason" {:schema {:type zen/vector,
+                                                                                                 :every {:type zen/map,
+                                                                                                         :keys {:category {:match {:coding #{{:system "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator",
+                                                                                                                                              :code "denialreason"}}}},
+                                                                                                                :reason {:fhir/flags #{:MS},
+                                                                                                                         :zen.fhir/value-set {:symbol hl7-fhir-us-davinci-pdex.value-set.X12ClaimAdjustmentReasonCodesCMSRemittanceAdviceRemarkCodes/value-set,
+                                                                                                                                              :strength :required}}},
+                                                                                                         :require #{:reason}}},
+                                                                                        :filter {:engine :match,
+                                                                                                 :match {:category {:coding #{{:system "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator",
+                                                                                                                               :code "denialreason"}}}}}},
+                                                                        "consumedunits" {:schema {:type zen/vector,
+                                                                                                  :maxItems 1,
+                                                                                                  :every {:type zen/map,
+                                                                                                          :keys {:category {:match {:coding #{{:system "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator",
+                                                                                                                                               :code "consumedunits"}}}},
+                                                                                                                 :value {:fhir/flags #{:MS}}},
+                                                                                                          :require #{:value}}},
+                                                                                         :filter {:engine :match,
+                                                                                                  :match {:category {:coding #{{:system "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationDiscriminator",
+                                                                                                                                :code "consumedunits"}}}}}}}},
+                                                     :every {:type zen/map,
+                                                             :keys {:reviewAction {:confirms #{hl7-fhir-us-davinci-pdex.extension-reviewAction/schema},
+                                                                                   :fhir/extensionUri "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction",
+                                                                                   :fhir/flags #{:MS},
+                                                                                   :zen/desc "The details of the review action that is necessary for the authorization."},
+                                                                    :category {:zen.fhir/value-set {:symbol hl7-fhir-us-davinci-pdex.value-set.PDexAdjudicationCategoryDiscriminator/value-set,
+                                                                                                    :strength :required}}},
+                                                             :fhir/flags #{:MS}}}}}},
+                :type {:fhir/flags #{:MS}},
+                :levelOfServiceType {:confirms #{hl7-fhir-us-davinci-pdex.extension-levelOfServiceCode/schema},
+                                     :fhir/extensionUri "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-levelOfServiceCode",
+                                     :fhir/flags #{:MS},
+                                     :zen/desc "A code specifying the level of service being requested (UM06)"},
+                :preAuthRefPeriod {:type zen/vector,
+                                   :every {:fhir/flags #{:MS}},
+                                   :maxItems 1},
+                :total {:type zen/vector,
+                        :every {:type zen/map,
+                                :keys {:priorauth-utilization {:confirms #{hl7-fhir-us-davinci-pdex.PriorAuthorizationUtilization/schema},
+                                                               :fhir/extensionUri "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/PriorAuthorizationUtilization",
+                                                               :fhir/flags #{:MS}},
+                                       :category {:fhir/flags #{:MS},
+                                                  :zen.fhir/value-set {:symbol hl7-fhir-us-davinci-pdex.value-set.PriorAuthorizationAmounts/value-set,
+                                                                       :strength :extensible},
+                                                  :zen/desc "Prior Authorization utilization codes"}}}},
+                :insurer {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-us-core.us-core-organization/schema}}},
+                :priority {:zen.fhir/value-set {:symbol hl7-fhir-r4-core.value-set.process-priority/value-set,
+                                                :strength :required}},
+                :status {:fhir/flags #{:MS}},
+                :provider {:fhir/flags #{:MS},
+                           :confirms #{zen.fhir/Reference},
+                           :zen.fhir/reference {:refers #{hl7-fhir-us-core.us-core-practitionerrole/schema
+                                                          hl7-fhir-us-core.us-core-organization/schema
+                                                          hl7-fhir-us-core.us-core-practitioner/schema}}},
+                :addItem {:type zen/vector,
+                          :every {:type zen/map,
+                                  :keys {:provider {:type zen/vector,
+                                                    :every {:confirms #{zen.fhir/Reference},
+                                                            :zen.fhir/reference {:refers #{hl7-fhir-us-core.us-core-practitionerrole/schema
+                                                                                           hl7-fhir-us-core.us-core-organization/schema
+                                                                                           hl7-fhir-us-core.us-core-practitioner/schema}}}}}}},
+                :careTeam {:type zen/vector,
+                           :every {:type zen/map,
+                                   :keys {:provider {:fhir/flags #{:MS},
+                                                     :confirms #{zen.fhir/Reference},
+                                                     :zen.fhir/reference {:refers #{hl7-fhir-us-core.us-core-practitionerrole/schema
+                                                                                    hl7-fhir-us-core.us-core-organization/schema
+                                                                                    hl7-fhir-us-core.us-core-practitioner/schema}}}}}}}}}

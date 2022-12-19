@@ -1,25 +1,18 @@
 {ns hl7-fhir-us-davinci-pdex.value-set.ProvenanceAgentType,
  import #{zen.fhir},
- value-set
- {:zen/tags #{zen.fhir/value-set},
-  :zen/desc "Agent role performed relating to referenced resource",
-  :zen.fhir/version "0.6.6-7",
-  :fhir/code-systems
-  #{{:fhir/url
-     "http://terminology.hl7.org/CodeSystem/provenance-participant-type",
-     :zen.fhir/content :bundled}
-    {:fhir/url
-     "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/ProvenanceAgentRoleType",
-     :zen.fhir/content :bundled}
-    {:fhir/url
-     "http://hl7.org/fhir/us/core/CodeSystem/us-core-provenance-participant-type",
-     :zen.fhir/content :bundled}},
-  :uri
-  "http://hl7.org/fhir/us/davinci-pdex/ValueSet/ProvenanceAgentType",
-  :version "2.0.0-ballot",
-  :ftr
-  {:module "ig",
-   :source-urls ["node_modules/hl7.fhir.us.davinci-pdex"],
-   :source-type :igs,
-   :ftr-path "ftr",
-   :tag "init"}}}
+ value-set {:zen/tags #{zen.fhir/value-set},
+            :zen/desc "Agent role performed relating to referenced resource",
+            :zen.fhir/version "0.6.6-8",
+            :fhir/code-systems #{{:fhir/url "http://terminology.hl7.org/CodeSystem/provenance-participant-type",
+                                  :zen.fhir/content :bundled}
+                                 {:fhir/url "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/ProvenanceAgentRoleType",
+                                  :zen.fhir/content :bundled}
+                                 {:fhir/url "http://hl7.org/fhir/us/core/CodeSystem/us-core-provenance-participant-type",
+                                  :zen.fhir/content :bundled}},
+            :uri "http://hl7.org/fhir/us/davinci-pdex/ValueSet/ProvenanceAgentType",
+            :version "2.0.0-ballot",
+            :ftr {:module "ig",
+                  :source-urls ["node_modules/hl7.fhir.us.davinci-pdex"],
+                  :source-type :igs,
+                  :ftr-path "ftr",
+                  :tag "init"}}}

@@ -1,15 +1,12 @@
 {ns hl7-fhir-us-davinci-pdex.search.explanationofbenefit-patient,
  import #{zen.fhir},
- search
- {:zen/tags #{zen.fhir/search},
-  :fhir/id "explanationofbenefit-patient",
-  :fhir/url
-  "http://hl7.org/fhir/us/davinci-pdex/SearchParameter/explanationofbenefit-patient",
-  :fhir/type "reference",
-  :name "patient",
-  :expr
-  {:ExplanationOfBenefit
-   {:knife [["patient"]],
-    :jsonpath ["$.\"patient\"[*]"],
-    :data-types #{{:type "Reference", :polymorphic? false}},
-    :template :reference}}}}
+ search {:zen/tags #{zen.fhir/search},
+         :fhir/id "explanationofbenefit-patient",
+         :fhir/url "http://hl7.org/fhir/us/davinci-pdex/SearchParameter/explanationofbenefit-patient",
+         :fhir/type "reference",
+         :name "patient",
+         :expr {:ExplanationOfBenefit {:knife [["patient"]],
+                                       :jsonpath ["$.\"patient\"[*]"],
+                                       :data-types #{{:type "Reference",
+                                                      :polymorphic? false}},
+                                       :template :reference}}}}

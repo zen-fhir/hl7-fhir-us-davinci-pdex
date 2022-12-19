@@ -1,50 +1,36 @@
 {ns hl7-fhir-us-davinci-pdex.pdex-device,
- import
- #{hl7-fhir-r4-core.Device
-   zen.fhir
-   hl7-fhir-us-core.us-core-patient
-   hl7-fhir-r4-core.value-set.device-status
-   hl7-fhir-r4-core.value-set.device-kind},
- schema
- {:zen.fhir/version "0.6.6-7",
-  :confirms #{hl7-fhir-r4-core.Device/schema zen.fhir/Resource},
-  :zen/tags #{zen.fhir/profile-schema zen/schema},
-  :zen.fhir/profileUri
-  "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-device",
-  :require #{:patient :type},
-  :type zen/map,
-  :zen/desc
-  "The PDex Device profile is provided to enable payers to record information about devices used by a member that may not have a UDI number. \nFHIR-29796 PDex Device uses base resource not US Core Implantable Device Profile. Pdex-Device enables payers to record non-implantable device data. CGP Voted on variance approval: Drew Torres/Eric Haas: 9-0-0",
-  :keys
-  {:patient
-   {:fhir/flags #{:MS},
-    :confirms #{zen.fhir/Reference},
-    :zen.fhir/reference
-    {:refers #{hl7-fhir-us-core.us-core-patient/schema}}},
-   :serialNumber #:fhir{:flags #{:MS}},
-   :type
-   {:fhir/flags #{:MS},
-    :zen.fhir/value-set
-    {:symbol hl7-fhir-r4-core.value-set.device-kind/value-set,
-     :strength :extensible}},
-   :distinctIdentifier #:fhir{:flags #{:MS}},
-   :status
-   {:fhir/flags #{:MS},
-    :zen.fhir/value-set
-    {:symbol hl7-fhir-r4-core.value-set.device-status/value-set,
-     :strength :required}},
-   :lotNumber #:fhir{:flags #{:MS}},
-   :url #:fhir{:flags #{:MS}},
-   :expirationDate #:fhir{:flags #{:MS}},
-   :udiCarrier
-   {:type zen/vector,
-    :every
-    {:type zen/map,
-     :keys
-     {:deviceIdentifier #:fhir{:flags #{:MS}},
-      :carrierAIDC #:fhir{:flags #{:MS}},
-      :carrierHRF #:fhir{:flags #{:MS}}},
-     :require #{:deviceIdentifier},
-     :fhir/flags #{:MS}},
-    :maxItems 1}},
-  :zen.fhir/type "Device"}}
+ import #{hl7-fhir-r4-core.Device
+          zen.fhir
+          hl7-fhir-us-core.us-core-patient
+          hl7-fhir-r4-core.value-set.device-status
+          hl7-fhir-r4-core.value-set.device-kind},
+ schema {:zen.fhir/version "0.6.6-8",
+         :confirms #{hl7-fhir-r4-core.Device/schema zen.fhir/Resource},
+         :zen/tags #{zen.fhir/profile-schema zen/schema},
+         :zen.fhir/profileUri "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-device",
+         :require #{:patient :type},
+         :type zen/map,
+         :zen/desc "The PDex Device profile is provided to enable payers to record information about devices used by a member that may not have a UDI number. \nFHIR-29796 PDex Device uses base resource not US Core Implantable Device Profile. Pdex-Device enables payers to record non-implantable device data. CGP Voted on variance approval: Drew Torres/Eric Haas: 9-0-0",
+         :keys {:patient {:fhir/flags #{:MS},
+                          :confirms #{zen.fhir/Reference},
+                          :zen.fhir/reference {:refers #{hl7-fhir-us-core.us-core-patient/schema}}},
+                :serialNumber {:fhir/flags #{:MS}},
+                :type {:fhir/flags #{:MS},
+                       :zen.fhir/value-set {:symbol hl7-fhir-r4-core.value-set.device-kind/value-set,
+                                            :strength :extensible}},
+                :distinctIdentifier {:fhir/flags #{:MS}},
+                :status {:fhir/flags #{:MS},
+                         :zen.fhir/value-set {:symbol hl7-fhir-r4-core.value-set.device-status/value-set,
+                                              :strength :required}},
+                :lotNumber {:fhir/flags #{:MS}},
+                :url {:fhir/flags #{:MS}},
+                :expirationDate {:fhir/flags #{:MS}},
+                :udiCarrier {:type zen/vector,
+                             :every {:type zen/map,
+                                     :keys {:deviceIdentifier {:fhir/flags #{:MS}},
+                                            :carrierAIDC {:fhir/flags #{:MS}},
+                                            :carrierHRF {:fhir/flags #{:MS}}},
+                                     :require #{:deviceIdentifier},
+                                     :fhir/flags #{:MS}},
+                             :maxItems 1}},
+         :zen.fhir/type "Device"}}
