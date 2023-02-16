@@ -2,7 +2,7 @@
  import #{zen.fhir},
  value-set {:zen/tags #{zen.fhir/value-set},
             :zen/desc "Source Data formats used as the source for FHIR referenced record by the Payer.",
-            :zen.fhir/version "0.16.13-2",
+            :zen.fhir/version "0.6.14",
             :fhir/code-systems #{{:fhir/url "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/ProvenancePayerDataSource",
                                   :zen.fhir/content :bundled}},
             :uri "http://hl7.org/fhir/us/davinci-pdex/ValueSet/ProvenancePayerSourceFormat",
