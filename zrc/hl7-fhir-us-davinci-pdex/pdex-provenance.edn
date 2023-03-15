@@ -10,7 +10,7 @@
          :zen/desc "Provenance is provided by the payer to identify the source of the information, whether the data came via a clinical record or a claim record and whether the data was subject to manual transcription or other interpretive transformation. This profile adds PayerSourceFormat as an extension on the entity base element.",
          :zen.fhir/type "Provenance",
          :zen.fhir/profileUri "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-provenance",
-         :zen.fhir/version "0.6.17",
+         :zen.fhir/version "0.6.17-1",
          :confirms #{hl7-fhir-us-core.us-core-provenance/schema
                      zen.fhir/Resource},
          :type zen/map,

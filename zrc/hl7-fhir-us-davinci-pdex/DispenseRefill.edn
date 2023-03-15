@@ -4,5 +4,5 @@
          :zen/desc "Refill number of this prescription",
          :zen.fhir/type "Quantity",
          :zen.fhir/profileUri "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/DispenseRefill",
-         :zen.fhir/version "0.6.17",
+         :zen.fhir/version "0.6.17-1",
          :confirms #{hl7-fhir-r4-core.Quantity/schema}}}
