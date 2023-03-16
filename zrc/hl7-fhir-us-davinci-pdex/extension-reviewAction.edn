@@ -7,7 +7,7 @@
  schema {:zen/tags #{zen/schema zen.fhir/structure-schema},
          :zen/desc "The details of the review action that is necessary for the authorization.",
          :zen.fhir/profileUri "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewAction",
-         :zen.fhir/version "0.6.17-2",
+         :zen.fhir/version "0.6.17-4",
          :type zen/map,
          :keys {:code {:confirms #{hl7-fhir-us-davinci-pdex.extension-reviewActionCode/schema},
                        :fhir/extensionUri "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/extension-reviewActionCode",
