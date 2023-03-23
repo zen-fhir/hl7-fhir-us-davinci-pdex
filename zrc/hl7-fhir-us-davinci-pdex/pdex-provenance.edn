@@ -2,26 +2,30 @@
  import #{hl7-fhir-us-davinci-pdex.ProvenanceSourceFrom
           zen.fhir
           hl7-fhir-us-core.us-core-practitioner
+          hl7-fhir-us-davinci-pdex.pdex-provenance
           hl7-fhir-us-core.us-core-organization
           hl7-fhir-us-core.value-set.us-core-provenance-participant-type
           hl7-fhir-us-core.us-core-provenance
           hl7-fhir-us-davinci-pdex.value-set.ProvenancePayerSourceFormat},
+ agent-schema {:zen/tags #{zen/schema zen.fhir/structure-schema},
+               :zen.fhir/version "0.6.19",
+               :type zen/map,
+               :keys {:type {:zen.fhir/value-set {:symbol hl7-fhir-us-core.value-set.us-core-provenance-participant-type/value-set,
+                                                  :strength :required}},
+                      :who {:confirms #{zen.fhir/Reference},
+                            :zen.fhir/reference {:refers #{hl7-fhir-us-core.us-core-organization/schema
+                                                           hl7-fhir-us-core.us-core-practitioner/schema}},
+                            :zen/desc "Provide US Core Organization. If no Organization provide US Core Practitioner"}}},
  schema {:zen/tags #{zen.fhir/profile-schema zen/schema},
          :zen/desc "Provenance is provided by the payer to identify the source of the information, whether the data came via a clinical record or a claim record and whether the data was subject to manual transcription or other interpretive transformation. This profile adds PayerSourceFormat as an extension on the entity base element.",
          :zen.fhir/type "Provenance",
          :zen.fhir/profileUri "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/pdex-provenance",
-         :zen.fhir/version "0.6.18-1",
+         :zen.fhir/version "0.6.19",
          :confirms #{hl7-fhir-us-core.us-core-provenance/schema
                      zen.fhir/Resource},
          :type zen/map,
          :keys {:agent {:type zen/vector,
-                        :every {:type zen/map,
-                                :keys {:type {:zen.fhir/value-set {:symbol hl7-fhir-us-core.value-set.us-core-provenance-participant-type/value-set,
-                                                                   :strength :required}},
-                                       :who {:confirms #{zen.fhir/Reference},
-                                             :zen.fhir/reference {:refers #{hl7-fhir-us-core.us-core-organization/schema
-                                                                            hl7-fhir-us-core.us-core-practitioner/schema}},
-                                             :zen/desc "Provide US Core Organization. If no Organization provide US Core Practitioner"}}}},
+                        :every {:confirms #{hl7-fhir-us-davinci-pdex.pdex-provenance/agent-schema}}},
                 :entity {:type zen/vector,
                          :every {:type zen/map,
                                  :keys {:sourceFormat {:confirms #{hl7-fhir-us-davinci-pdex.ProvenanceSourceFrom/schema},
