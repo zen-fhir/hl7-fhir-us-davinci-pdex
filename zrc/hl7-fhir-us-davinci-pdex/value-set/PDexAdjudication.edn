@@ -2,7 +2,7 @@
  import #{zen.fhir},
  value-set {:zen/tags #{zen.fhir/value-set},
             :zen/desc "Describes the various amount fields used when payers receive and adjudicate a claim.  It includes the values\ndefined in http://terminology.hl7.org/CodeSystem/adjudication, as well as those defined in the PDex Adjudication CodeSystem.",
-            :zen.fhir/version "0.6.19",
+            :zen.fhir/version "0.6.20-2",
             :fhir/code-systems #{{:fhir/url "http://terminology.hl7.org/CodeSystem/adjudication",
                                   :zen.fhir/content :bundled}
                                  {:fhir/url "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/PDexAdjudicationCS",
