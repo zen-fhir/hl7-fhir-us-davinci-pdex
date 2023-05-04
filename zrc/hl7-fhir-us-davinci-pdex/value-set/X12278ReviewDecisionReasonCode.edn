@@ -2,7 +2,7 @@
  import #{zen.fhir},
  value-set {:zen/tags #{zen.fhir/value-set},
             :zen/desc "Codes used to identify the reason for the health care service review outcome.",
-            :zen.fhir/version "0.6.23-1",
+            :zen.fhir/version "0.6.24",
             :fhir/code-systems #{{:fhir/url "https://codesystem.x12.org/external/886",
                                   :zen.fhir/content :not-present}},
             :uri "http://hl7.org/fhir/us/davinci-pdex/ValueSet/X12278ReviewDecisionReasonCode",
